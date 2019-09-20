@@ -14,6 +14,5 @@ rl.on('line', (line) => {
     goodCount(cur)
   }
 });
-
 function goodCount(str) {
 }
