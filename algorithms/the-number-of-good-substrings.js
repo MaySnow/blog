@@ -15,4 +15,14 @@ rl.on('line', (line) => {
   }
 });
 function goodCount(str) {
+  let strLen = str.length;
+  let count = 0;
+  for(let l = 0; l < strLen; l++) {
+    for (let r = l; r < strLen; r++) {
+      if ((r - l + 1) === parseInt(str.substring(l, r + 1),2)) {
+        count++
+      }
+    }
+  }
+  console.log(count)
 }
