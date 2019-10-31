@@ -24,7 +24,7 @@ function goodCount(str) {
 
   while (l < strLen) {
     let curStrIndex =  curStr.indexOf('1');
-    zeroCount = curStrIndex
+    zeroCount = curStrIndex;
     if (curStrIndex !== -1) {
       l += curStrIndex + 1;
       let tempStr = str.substring(l - 1);
