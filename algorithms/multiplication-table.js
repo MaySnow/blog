@@ -60,25 +60,23 @@ rl.on('line', function (line) {
 function getTable(multiArr) {
     let len = multiArr.length;
     let resArr = [];
-
-    function getMain(i) {
-        let j, k;
-        if (i === 0) {
-            j = i + 1, k = i + 2;
-        } else if (i === len - 1) {
-            j = i - 1, k = i - 2;
-        } else {
-            j = i - 1; k = i + 1;
-        }
-        let Mij = multiArr[i][j];
-        let Mik = multiArr[i][k];
-        let Mjk = multiArr[j][k];
-        return Math.sqrt((Mij * Mik) / Mjk)
-    }
-
     for (let i = 0; i < len; i++) {
-        resArr.push(getMain(i));
+        resArr.push(getMain(i, len));
     }
-    return resArr.join(' ')
+    return resArr.join(' ');
 }
 
+function getMain(i, len) {
+    let j, k;
+    if (i === 0) {
+        j = i + 1, k = i + 2;
+    } else if (i === len - 1) {
+        j = i - 1, k = i - 2;
+    } else {
+        j = i - 1; k = i + 1;
+    }
+    let Mij = multiArr[i][j];
+    let Mik = multiArr[i][k];
+    let Mjk = multiArr[j][k];
+    return Math.sqrt((Mij * Mik) / Mjk);
+}
