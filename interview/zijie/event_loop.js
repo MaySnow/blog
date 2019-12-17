@@ -1,4 +1,4 @@
-// 时间循环机制
+// 事件循环机制
 // script start
 // fun1 start
 // fun2

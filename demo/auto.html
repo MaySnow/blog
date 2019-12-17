@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .list {
+      display: flex;
+    }
+
+    .item {
+      margin: 10px;
+      background-color: red;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+<div class="list">
+  <div class="item">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+  </div>
+  <div class="item">
+    <p>1</p>
+    <p>2</p>
+  </div>
+  <div class="item">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <p>5</p>
+  </div>
+</div>
+<script>
+  function bar() {
+    console.log('bar')
+  }
+
+  function foo() {
+    setTimeout(bar, 0);
+    for (let i = 0; i < 5000; i++) {
+      let i = 5 + 8 + 8 + 8
+      console.log(i)
+    }
+  }
+
+  foo()
+</script>
+</body>
+</html>
