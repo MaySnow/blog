@@ -1,4 +1,3 @@
-let str = 'P0(0.0)'
-let res = /(.+)\((.+)\)/.exec(str)
-console.log(res[1])
-console.log(res[2])
+let arr = [1,2,3,4,5,null]
+
+console.log(arr.reverse())
