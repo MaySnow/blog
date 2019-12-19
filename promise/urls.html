@@ -5,8 +5,14 @@
   <title>promise 并发限制</title>
 </head>
 <body>
-<script>
-  // 同时下载数量不可超过三个
+  <p>有 8 个图片资源的 url，已经存储在数组 urls 中（即urls = ['http://example.com/1.jpg', ...., 'http://example.com/8.jpg']），而且已经有一个函数 function loadImg，输入一个 url 链接，返回一个 Promise，该 Promise 在图片下载完成的时候 resolve，下载失败则 reject。</p>
+  <p>但是我们要求，任意时刻，同时下载的链接数量不可以超过 3 个。</p>
+  <p>请写一段代码实现这个需求，要求尽可能快速地将所有图片下载完成。</p>
+  <p>解析：先并发请求 3 张图片，当一张图片加载完成后，又会继续发起一张图片的请求，让并发数保持在 3 个，直到需要加载的图片都全部发起请求。</p>
+  <br>
+  <p><b>Promise.all(iterable)</b> 方法返回一个 Promise 实例，此实例在 iterable 参数内所有的 promise 都“完成（resolved）”或参数中不包含 promise 时回调完成（resolve）；如果参数中  promise 有一个失败（rejected），此实例回调失败（reject），失败原因的是第一个失败 promise 的结果</p>
+  <p><b>Promise.race(iterable)</b> 方法返回一个 promise，一旦迭代器中的某个promise解决或拒绝，返回的 promise就会解决或拒绝。</p>
+  <script>
   var urls = [
     'https://www.kkkk1000.com/images/getImgData/getImgDatadata.jpg',
     'https://www.kkkk1000.com/images/getImgData/gray.gif',
@@ -18,15 +24,16 @@
     'https://www.kkkk1000.com/images/wxQrCode2.png'];
   function loadImg (url) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const img = new Image()
-        img.onload = function () {
+      const img = new Image()
+      img.onload = function () {
+        setTimeout(() => {
           console.log(`${url}图片加载完成`)
           resolve()
-        }
-        img.onerror = reject
-        img.src = url
-      }, 30)
+        }, 3000)
+      }
+      img.onerror = reject
+      img.src = url
+
     })
   }
   function limitLoad (urls, handler, limit) {
@@ -37,8 +44,18 @@
         return index
       })
     })
+    // reduce
+    // 第一次 last = Promise.resolve()
+    // 第二次 last = Promise
+    // 第三次 last = Promise
+    // .
+    // .
+    // .
+    // reduce 结束后 返回的是 Promise.race() 调用的为 Promise.race().then()
     // 利用数组的 reduce 方法来以队列的形式执行
     return sequence.reduce((last, url, currentIndex) => {
+      console.log(last)
+      console.log(currentIndex)
       return last.then(() => {
         // 返回最快改变状态的 Promise
         return Promise.race(promises)
@@ -47,11 +64,14 @@
         // 更重要的是防止中断整个链式调用
         console.error(err)
       }).then((res) => {
-        console.log(`${res}-${url}`)
         // 用新的 Promise 替换掉最快改变状态的 Promise
-        promises[res] = handler(sequence[currentIndex]).then(() => { return res });
+        // 也就是替换掉最先加载成功的图片，handler()方法执行了图片的加载
+        promises[res] = handler(sequence[currentIndex]).then(() => {
+          return url
+        });
       })
-    }, Promise.resolve()).then(() => {
+    }, Promise.resolve()).then((res) => {
+      console.log(res)
       return Promise.all(promises)
     })
   }
