@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>promise 并发限制</title>
+</head>
+<body>
+<script>
+  // 同时下载数量不可超过三个
+  var urls = [
+    'https://www.kkkk1000.com/images/getImgData/getImgDatadata.jpg',
+    'https://www.kkkk1000.com/images/getImgData/gray.gif',
+    'https://www.kkkk1000.com/images/getImgData/Particle.gif',
+    'https://www.kkkk1000.com/images/getImgData/arithmetic.png',
+    'https://www.kkkk1000.com/images/getImgData/arithmetic2.gif',
+    'https://www.kkkk1000.com/images/getImgData/getImgDataError.jpg',
+    'https://www.kkkk1000.com/images/getImgData/arithmetic.gif',
+    'https://www.kkkk1000.com/images/wxQrCode2.png'];
+  function loadImg (url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const img = new Image()
+        img.onload = function () {
+          console.log(`${url}图片加载完成`)
+          resolve()
+        }
+        img.onerror = reject
+        img.src = url
+      }, 30)
+    })
+  }
+  function limitLoad (urls, handler, limit) {
+    const sequence = [].concat(urls)
+    let promises = []
+    promises = sequence.splice(0, limit).map((url, index) => {
+      return handler(url).then(() => {
+        return index
+      })
+    })
+    // 利用数组的 reduce 方法来以队列的形式执行
+    return sequence.reduce((last, url, currentIndex) => {
+      return last.then(() => {
+        // 返回最快改变状态的 Promise
+        return Promise.race(promises)
+      }).catch(err => {
+        // 这里的 catch 不仅用来捕获 前面 then 方法抛出的错误
+        // 更重要的是防止中断整个链式调用
+        console.error(err)
+      }).then((res) => {
+        console.log(`${res}-${url}`)
+        // 用新的 Promise 替换掉最快改变状态的 Promise
+        promises[res] = handler(sequence[currentIndex]).then(() => { return res });
+      })
+    }, Promise.resolve()).then(() => {
+      return Promise.all(promises)
+    })
+  }
+
+  limitLoad(urls, loadImg, 3)
+</script>
+</body>
+</html>
