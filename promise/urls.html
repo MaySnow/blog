@@ -54,9 +54,9 @@
     // reduce 结束后 返回的是 Promise.race() 调用的为 Promise.race().then()
     // 利用数组的 reduce 方法来以队列的形式执行
     return sequence.reduce((last, url, currentIndex) => {
-      console.log(last)
-      console.log(currentIndex)
       return last.then(() => {
+        console.log(last)
+        console.log(currentIndex)
         // 返回最快改变状态的 Promise
         return Promise.race(promises)
       }).catch(err => {

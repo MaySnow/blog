@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>红绿灯</title>
+  <style>
+    #light {
+      width: 100px;
+      height: 100px;
+    }
+    .green {
+      background-color: green;
+    }
+    .yellow {
+      background-color: yellow;
+    }
+    .red {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="light"></div>
+  <script>
+    let $light = document.getElementById('light')
+    function green() {
+      return new Promise((resolve => {
+        setTimeout(() => {
+          $light.className = 'green'
+          resolve()
+        }, 3000)
+      }))
+    }
+    function yellow() {
+      return new Promise((resolve => {
+        setTimeout(() => {
+          $light.className = 'yellow'
+          resolve()
+        }, 1000)
+      }))
+    }
+    function red() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          $light.className = 'red'
+          resolve()
+        }, 2000)
+      })
+    }
+    async function light() {
+      while (true) {
+        await green()
+        await yellow()
+        await red()
+      }
+    }
+    light()
+  </script>
+</body>
+</html>
