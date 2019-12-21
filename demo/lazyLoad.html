@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>虚拟代理-图片懒加载</title>
+    <style>
+        .img {
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        .pic {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_208c6420dd454bb495f00752e2a2e5bd.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_c552fe32b86343cb833636e870325e97.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_f9fe22afad7042d1a4666719fef7af55.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_d60c3dc788414369b1a141e750b95b5f.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_d60c3dc788414369b1a141e750b95b5f.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_06da93996eab4085a757665e579f7a6b.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_82047adb4a174f21ae21c7bf5bda0472.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_23d1261888be428891e2fc1b18501dd7.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_5b4e9b5ed19945f6bf96187f701ec0f2.jpg?imageView2/2/h/200">
+        </div>
+        <div class="img">
+            <img class="pic" src="./img/bg.png" alt="加载中" data-src="http://static-may-bogum-manual.seveniu.com/adv-MandarinaDucK_4536fcf48929474c93a2272e63b120e9.jpg?imageView2/2/h/200">
+        </div>
+    </div>
+    <script>
+        // 只是个简单的原理，有很多地方需要优化，比如节流防抖
+        const imgs = document.getElementsByClassName('pic')
+        const viewHeight = window.innerHeight || document.documentElement.clientHeight
+        let num = 0
+        function lazyLoad () {
+            for (let i = 0; i < imgs.length; i++) {
+                let curImg = imgs[i]
+                // 用视区域的高度减去元素距离顶部距离可视区域顶部的高度
+                let distance = viewHeight - curImg.getBoundingClientRect().top
+                // 如果可视区域的高度大于等于元素顶部距离可视区域顶部的高度，说明元素露出
+                if (distance >= 0) {
+                    curImg.src = curImg.getAttribute('data-src')
+                    num = i + 1
+                }
+            }
+        }
+        lazyLoad()
+        window.addEventListener('scroll', lazyLoad)
+    </script>
+</body>
+
+</html>
