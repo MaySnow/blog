@@ -64,3 +64,5 @@ typings/
 
 .idea
 .history
+
+.DS_Store
