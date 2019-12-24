@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .other {
+            background: blue
+        }
+        .cur {
+            background: red
+        }
+    </style>
+</head>
+<body>
+    <ul id="test">
+        <li>
+            <div>
+                lslsl
+                <p>
+                    lele
+                    <a href="javascript:;">点我</a>
+                </p>
+            </div>
+        </li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        let $el = document.getElementById('test')
+        let $child = $el.children
+        let arr = Array.from($child)
+        document.addEventListener('click', function (e) {
+            alert(arr.indexOf(e.target))
+        })
+    </script>
+</body>
+</html>
