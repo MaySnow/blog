@@ -25,7 +25,18 @@
                 </p>
             </div>
         </li>
-        <li>2</li>
+        <li>
+            <div>
+                lslsl
+                <p>
+                    lele
+                    <a href="javascript:;">点我</a>
+                </p>
+                <p>
+                    <a href="javascript:;">点我2222</a>
+                </p>
+            </div>
+        </li>
         <li>3</li>
         <li>4</li>
     </ul>
@@ -34,8 +45,13 @@
         let $child = $el.children
         let arr = Array.from($child)
         document.addEventListener('click', function (e) {
-            alert(arr.indexOf(e.target))
-        })
+            // alert(arr.indexOf(e.target))
+            let targetEl = e.target
+            while(targetEl && targetEl.tagName.toLowerCase() !== 'li') {
+                targetEl = targetEl.parentNode
+            }
+            alert(arr.indexOf(targetEl))
+        })  
     </script>
 </body>
 </html>
