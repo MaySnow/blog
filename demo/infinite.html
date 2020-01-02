@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无限滚动</title>
+</head>
+<style>
+    html, body, ul {
+        margin: 0;
+        padding: 0;
+    }
+    #list li {
+        height: 100px;
+        background: red;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <ul id="list"></ul>
+    <script>
+        let total = 0
+        let listEl = document.getElementById('list')
+        let viewHeight = window.innerHeight || document.documentElement.clientHeight
+        function getPage(isFirst) {
+            if (!isFirst) {
+                alert(`加载第${total/10 + 1}页`)
+            }
+            let fragment = document.createDocumentFragment()
+            for (let i = 0; i < 10; i++) {
+                let li = document.createElement('li')
+                li.innerHTML = total + i
+                fragment.appendChild(li)
+            }
+            total += 10
+            listEl.appendChild(fragment)
+        }
+        getPage(true)
+
+        // TODO 加上防抖节流
+        document.addEventListener('scroll', function() {
+            let listRect = listEl.getBoundingClientRect()
+            let {top, height} = listRect
+            // 当可视区域减去列表顶部相对于视口的位置，当向上滑动顶部超出视口时 top 值为负
+            if (viewHeight - top >= height) {
+                getPage()
+            }
+        })
+    </script>
+</body>
+</html>

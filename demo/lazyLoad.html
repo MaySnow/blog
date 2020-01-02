@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>虚拟代理-图片懒加载</title>
+    <title>图片懒加载</title>
     <style>
         .img {
             height: 200px;
@@ -56,8 +56,12 @@
         const imgs = document.getElementsByClassName('pic')
         const viewHeight = window.innerHeight || document.documentElement.clientHeight
         let num = 0
+        let imgLen = imgs.length
         function lazyLoad () {
-            for (let i = 0; i < imgs.length; i++) {
+            if (num === imgLen) {
+                return
+            }
+            for (let i = 0; i < imgLen; i++) {
                 let curImg = imgs[i]
                 // 用视区域的高度减去元素距离顶部距离可视区域顶部的高度
                 let distance = viewHeight - curImg.getBoundingClientRect().top
