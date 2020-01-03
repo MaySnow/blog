@@ -4,7 +4,7 @@
 //  0, 当 n = 0
 //  1, 当 n = 1
 //  F(n - 1) + F(n- 2), 当 n > 1
-const fibonacci = (function(n) {
+const fibonacci = (function() {
     let memory = {}
     return function (n) {
         if (n === 0 | n === 1) {

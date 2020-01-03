@@ -29,3 +29,4 @@ function euclideanAlgorithmIterative(originalA, originalB) {
   return a || b;
 }
 console.log(euclideanAlgorithmIterative(1071, 462))
+console.log(euclideanAlgorithm(1071, 462))
