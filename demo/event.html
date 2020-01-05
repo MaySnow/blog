@@ -46,7 +46,10 @@
         let arr = Array.from($child)
         document.addEventListener('click', function (e) {
             // alert(arr.indexOf(e.target))
-            let targetEl = e.target
+            let targetEl = e.target || e.srcElement
+            if (targetEl.tagName !== 'A') {
+                return
+            }
             while(targetEl && targetEl.tagName.toLowerCase() !== 'li') {
                 targetEl = targetEl.parentNode
             }

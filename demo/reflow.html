@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>重排</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css">
+    <style>
+        .tip-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 2s;
+            color: orange;
+            background: #ffffff;
+
+        }
+
+        .tip-content.auto {
+            height: 140px;
+        }
+
+        .content {
+            transform: translate3d(0, 0, 0);
+        }
+
+        .img-1 {
+            background: #D6D65B;
+            background: hsl(60, 60%, 60%);
+        }
+
+        .img-2 {
+            background: #5BD6AD;
+            background: hsl(160, 60%, 60%);
+        }
+
+        .img-3 {
+            background: #5B99D6;
+            background: hsl(210, 60%, 60%);
+        }
+
+        .img-4 {
+            background: #D65BC1;
+            background: hsl(310, 60%, 60%);
+        }
+
+        .img-5 {
+            background: #70D65B;
+            background: hsl(110, 60%, 60%);
+        }
+
+        .img-6 {
+            background: #D65B5B;
+            background: hsl(0, 60%, 60%);
+        }
+
+        .img-7 {
+            background: #D6995B;
+            background: hsl(30, 60%, 60%);
+        }
+
+        .img-8 {
+            background: #705BD6;
+            background: hsl(250, 60%, 60%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tip-wrap">
+        <p>
+            <a href="javascript:;" id="tip">注意</a>
+        </p>
+        <div class="tip-content">
+            “经典”的面向对象的语言并非坏事，就像上面提到的，OOP 可能很快就变得非常复杂，JavaScript 找到了在不变的特别复杂的情况下利用面向对象的优点的方法。
+        </div>
+    </div>
+    <div class="content">
+        <h2>构建函数和对象</h2>
+        <p>有些人认为 JavaScript 不是真正的面向对象的语言，比如它没有像许多面向对象的语言一样有用于创建class类的声明。JavaScript 用一种称为构建函数的特殊函数来定义对象和它们的特征。构建函数非常有用，因为很多情况下您不知道实际需要多少个对象（实例）。构建函数提供了创建您所需对象（实例）的有效方法，将对象的数据和特征函数按需联结至相应对象。
+            不像“经典”的面向对象的语言，从构建函数创建的新实例的特征并非全盘复制，而是通过一个叫做原形链的参考链链接过去的。（参见 Object prototypes），所以这并非真正的实例，严格的讲， JavaScript 在对象间使用和其它语言的共享机制不同。
+        </p>
+        <div class="start-index" id="start-index">
+            <div class="item">
+                <div class="img img-1">
+                    <a href="">0</a>
+                </div>
+                <p>
+                    Sunt dignissimos distinctio, veniam, tenetur aspernatur nulla!
+                </p>
+            </div>
+            <div class="item">
+                <div class="img img-2">
+                    <a href="">1</a>
+                </div>
+                <p>
+                    Corrupti, libero minima nihil expedita officiis? Quo.
+                </p>
+            </div>
+            <div class="item">
+                <div class="img img-3">
+                    <a href="">2</a>
+                </div>
+                <p>
+                    Alias rem, ab impedit recusandae repellat tempore.
+                </p>
+            </div>
+            <div class="item">
+                <div class="img img-4">
+                    <a href="">3</a>
+                </div>
+                <p>
+                    Nisi inventore quo delectus perspiciatis voluptatibus, quae.
+                </p>
+            </div>
+            <div class="item">
+                <div class="img img-5">
+                    <a href="">4</a>
+                </div>
+                <p>
+                    Nisi harum earum consectetur laudantium iusto, laboriosam.
+                </p>
+            </div>
+            <div class="item">
+                <div class="img img-6">
+                    <a href="">5</a>
+                </div>
+                <p>
+                    Dolores blanditiis neque, quis vitae? Reprehenderit, aliquam.
+                </p>
+            </div>
+            <div class="item">
+                <div class="img img-7">
+                    <a href="">6</a>
+                </div>
+                <p>
+                    Omnis dolorum eum blanditiis, ratione voluptates quod.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script>
+        var slider = tns({
+            container: '#start-index',
+            items: 3,
+            slideBy: 'page',
+            loop: false,
+            startIndex: 6,
+        });
+        var tipEl = document.getElementById('tip')
+        var contentEl = document.querySelector('.tip-content')
+        document.addEventListener('click', function () {
+            if (contentEl.className.indexOf('auto') !== -1) {
+                contentEl.className = 'tip-content'
+            } else {
+                contentEl.className = 'tip-content auto'
+            }
+        })
+    </script>
+</body>
+
+</html>
